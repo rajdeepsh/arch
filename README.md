@@ -53,5 +53,5 @@
 4. Execute `install.sh`:
 
    ```bash
-   bash install.sh
+   bash arch/install.sh
    ```
