@@ -41,7 +41,7 @@
 2. Install `gum` and `git`:
 
    ```bash
-   pacman -Sy gum git
+   pacman -Sy gum git --noconfirm
    ```
 
 3. Clone this repository:
