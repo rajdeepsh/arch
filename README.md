@@ -10,6 +10,6 @@
    ```bash
    bash verify.sh
    ```
-4. Flash Arch ISO into external drive and boot into the live environment.
+4. Flash Arch ISO into an external drive and boot into the live environment.
 
 ## Install Arch
