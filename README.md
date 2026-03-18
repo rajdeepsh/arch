@@ -17,7 +17,7 @@
 
 ## Install Arch
 
-1. Connect to the internet with `iwctl`.
+1. Connect to the internet with `iwctl`:
 
    ```bash
    # Start iwctl
@@ -38,19 +38,19 @@
    ping ping.archlinux.org
    ```
 
-2. Install `gum` and `git`.
+2. Install `gum` and `git`:
 
    ```bash
    pacman -Sy gum git
    ```
 
-3. Clone this repository.
+3. Clone this repository:
 
    ```bash
    git clone https://github.com/rajdeepsh/arch.git
    ```
 
-4. Execute `install.sh`
+4. Execute `install.sh`:
 
    ```bash
    bash install.sh
