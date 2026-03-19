@@ -103,3 +103,4 @@ hypridle
 wtype
 brightnessctl
 playerctl
+rofi
