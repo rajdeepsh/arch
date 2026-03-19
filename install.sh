@@ -8,7 +8,6 @@ WHITE=15
 export GUM_INPUT_PROMPT_FOREGROUND="$GREEN"
 export GUM_INPUT_CURSOR_FOREGROUND=""
 export GUM_INPUT_HEADER_FOREGROUND=""
-export GUM_CHOOSE_CURSOR="❯ "
 export GUM_CHOOSE_HEADER_FOREGROUND="$GREEN"
 export GUM_CHOOSE_SELECTED_FOREGROUND="$GREEN"
 export GUM_CHOOSE_CURSOR_FOREGROUND="$GREEN"
@@ -31,8 +30,8 @@ clear
 gum style "Using Arch again, Rajdeep? Let's set up your user account..." --foreground "$TEAL"
 echo ""
 while true; do
-    pass=$(gum input --password --placeholder "Used for user + root + encryption" --prompt "Password❯ ")
-    confirm_pass=$(gum input --password --placeholder "Must match the password you just typed" --prompt "Confirm❯ ")
+    pass=$(gum input --password --placeholder "Used for user + root + encryption" --prompt "Password> ")
+    confirm_pass=$(gum input --password --placeholder "Must match the password you just typed" --prompt "Confirm> ")
     if [[ "$pass" != "$confirm_pass" ]]; then
         gum spin --spinner pulse --spinner.foreground "$RED" --title "Passwords must match! Press any key to try again." --title.foreground "$RED" -- bash -c 'read -n 1 -s'
         continue
