@@ -33,7 +33,7 @@ clear
 gum style "Using Arch again, Rajdeep? Let's set up your user account..." --foreground "$BLUE"
 echo ""
 while true; do
-    pass=$(gum input --password --placeholder "Used for user + root + encryption" --prompt "Password> ")
+    pass=$(gum input --password --placeholder "Enter your password" --prompt "Password> ")
     confirm_pass=$(gum input --password --placeholder "Must match the password you just typed" --prompt "Confirm> ")
     if [[ "$pass" != "$confirm_pass" ]]; then
         gum spin --spinner pulse --spinner.foreground "$RED" --title "Passwords must match! Press any key to try again." --title.foreground "$RED" -- bash -c 'read -n 1 -s'
