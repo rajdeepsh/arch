@@ -21,8 +21,8 @@ for prog in "${programs[@]}"; do
   fi
 done
 
-gum style --foreground "$PURPLE" "Back to Arch again, Rajdeep? Let's verify your ISO..."
-gum style --foreground "$PURPLE" "Required files: (1) *.iso, (2) *.sig, (3) sha256sums.txt, and (4) b2sums.txt."
+gum style --foreground "$BLUE" "Let's verify your ISO..."
+gum style --foreground "$BLUE" "Required files: (1) *.iso, (2) *.sig, (3) sha256sums.txt, and (4) b2sums.txt."
 echo ""
 
 dir=$(find "$HOME" -mindepth 1 -maxdepth 1 -type d ! -name ".*" | sort -f | gum choose --header "Select directory containing files")
