@@ -21,3 +21,21 @@ echo "$1" | passwd root --stdin
 useradd -m -G wheel -s /bin/bash rajdeep
 echo "$1" | passwd rajdeep --stdin
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
+
+# Set parallel downloads
+sed -i 's/^ParallelDownloads = [0-9]\+/ParallelDownloads = 20/' /etc/pacman.conf
+
+# Enable color
+sed -i 's/^#Color/Color/' /etc/pacman.conf
+
+# Add candy
+sed -i '/^ParallelDownloads = 20/a ILoveCandy' /etc/pacman.conf
+
+# Enable multilib
+sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+
+# Install packages
+pacman -Syu --noconfirm --needed - < /arch/pkglist.txt
+
+# Setup greetd
+mkdir -p /etc/greetd && cp /arch/config.toml /etc/greetd/
