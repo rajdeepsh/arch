@@ -5,7 +5,7 @@ set -euo pipefail
 programs=(gum sha256sum b2sum gpg)
 for prog in "${programs[@]}"; do
   if ! command -v "$prog" >/dev/null 2>&1; then
-    echo "Error: $prog is not installed. Please install it first."
+    echo "Error: ${prog} is not installed. Please install it first."
     exit 1
   fi
 done
