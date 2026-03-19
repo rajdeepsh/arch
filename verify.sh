@@ -3,11 +3,12 @@ set -euo pipefail
 
 WHITE=15
 BLACK=0
-BLUE=14
 GREEN=10
+BLUE=14
+PURPLE=13
 RED=9
 
-export GUM_CHOOSE_HEADER_FOREGROUND="$GREEN"
+export GUM_CHOOSE_HEADER_FOREGROUND="$BLUE"
 export GUM_CHOOSE_SELECTED_FOREGROUND="$GREEN"
 export GUM_CHOOSE_CURSOR_FOREGROUND="$GREEN"
 
@@ -20,8 +21,8 @@ for prog in "${programs[@]}"; do
   fi
 done
 
-gum style --foreground "$BLUE" "Back to Arch again, Rajdeep? Let's verify your ISO..."
-gum style --foreground "$BLUE" "Required files: (1) *.iso, (2) *.sig, (3) sha256sums.txt, and (4) b2sums.txt."
+gum style --foreground "$PURPLE" "Back to Arch again, Rajdeep? Let's verify your ISO..."
+gum style --foreground "$PURPLE" "Required files: (1) *.iso, (2) *.sig, (3) sha256sums.txt, and (4) b2sums.txt."
 echo ""
 
 dir=$(find "$HOME" -mindepth 1 -maxdepth 1 -type d ! -name ".*" | sort -f | gum choose --header "Select directory containing files")
@@ -62,4 +63,4 @@ else
 fi
 
 echo ""
-gum spin --spinner globe --title "Done! Press any key to close..." --title.foreground "$BLUE" -- bash -c 'read -n 1 -s'
+gum spin --spinner globe --title "Done! Press any key to close..." --title.foreground "$PURPLE" -- bash -c 'read -n 1 -s'
