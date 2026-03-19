@@ -10,5 +10,10 @@ for prog in "${programs[@]}"; do
   fi
 done
 
-disk=$(lsblk -dpno NAME,SIZE,ROTA,TYPE | awk '$3==0 && $4=="disk" {print $1, $2}' | gum choose --header "Select the disk to format:" | awk '{print $1}')
-echo "Selected disk: $disk"
+while true; do
+    disk=$(lsblk -dpno NAME,SIZE,ROTA,TYPE | awk '$3==0 && $4=="disk" {print $1, $2}' | gum choose --header "Select the disk to format:" | awk '{print $1}')
+    if gum confirm "Disk to format: $disk"; then
+        echo -e "label: gpt\n,1G,U\n,8G,S\n,+,L" | sfdisk --wipe=always "$disk"
+        break
+    fi
+done
