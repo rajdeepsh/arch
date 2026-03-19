@@ -2,9 +2,9 @@
 vt = "current"
 
 [default_session]
-command = "hyprland"
+command = "start-hyprland"
 user = "rajdeep"
 
 [initial_session]
-command = "hyprland"
+command = "start-hyprland"
 user = "rajdeep"
