@@ -67,6 +67,3 @@ systemctl enable systemd-resolved.service
 systemctl enable iwd.service
 systemctl enable bluetooth.service
 systemctl enable greetd.service
-
-# Display system information
-fastfetch

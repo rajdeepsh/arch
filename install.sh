@@ -94,9 +94,8 @@ rm -rf /mnt/arch /root/arch
 umount -R /mnt
 
 # Reboot
-for i in {5..1}
-do
-    echo "Rebooting in $i seconds..."
-    sleep 1
+echo ""
+for i in {5..1}; do
+  gum spin --spinner globe --title.foreground "${PURPLE}" --title "Done! Rebooting in ${i} seconds..." -- sleep 1
 done
 reboot
