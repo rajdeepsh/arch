@@ -35,18 +35,18 @@ fingerprint=3E80CA1A8B89F69CBA57D98A76A5EF9054449A5C
 # Verify sha256 checksum
 sha256_out=$(sha256sum -c "$sha256_file" --ignore-missing 2>&1)
 if [[ "$sha256_out" == *"${iso_file}: OK"* ]]; then
-  gum style --foreground "$GREEN" "✔ sha256 checksum verified successfully!"
+  gum style --foreground "$GREEN" "✔ SHA-256 checksum verified successfully!"
 else
-  gum style --foreground "$RED" "✗ sha256 checksum verification failed!"
+  gum style --foreground "$RED" "✗ SHA-256 checksum verification failed!"
   exit 1
 fi
 
 # Verify b2 checksum
 b2sum_out=$(b2sum -c "$b2_file" --ignore-missing 2>&1)
 if [[ "$b2sum_out" == *"${iso_file}: OK"* ]]; then
-  gum style --foreground "$GREEN" "✔ b2 checksum verified successfully!"
+  gum style --foreground "$GREEN" "✔ BLAKE2b checksum verified successfully!"
 else
-  gum style --foreground "$RED" "✗ b2 checksum verification failed!"
+  gum style --foreground "$RED" "✗ BLAKE2b checksum verification failed!"
   exit 1
 fi
 
@@ -55,9 +55,9 @@ gum spin --spinner dot --spinner.foreground "$BLUE" --title "Trusting Pierre's g
 
 gpg_out=$(gpg --verify "$sig_file" "$iso_file" 2>&1)
 if [[ "$gpg_out" == *'Good signature from "Pierre Schmitz <pierre@archlinux.org>" [ultimate]'* ]]; then
-  gum style --foreground "$GREEN" "✔ gpg signature verified successfully!"
+  gum style --foreground "$GREEN" "✔ GPG signature verified successfully!"
 else
-  gum style --foreground "$RED" "✗ gpg signature verification failed!"
+  gum style --foreground "$RED" "✗ GPG signature verification failed!"
   exit 1
 fi
 
