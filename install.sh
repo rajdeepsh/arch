@@ -63,14 +63,40 @@ while true; do
         mkswap "$swap"
         mkfs.ext4 -F "$root"
 
+        mount "$root" /mnt
         mount --mkdir "$efi" /mnt/boot
         swapon "$swap"
-        mount "$root" /mnt
 
         break
     fi
 done
 
-clear
-gum style "Disk overwritten! Installing Arch..." --foreground "$BLUE"
-echo ""
+# Select mirrors
+reflector -c Singapore -f 20 -l 100 -p https --sort rate --save /etc/pacman.d/mirrorlist
+
+# Install base packages
+pacstrap -K /mnt base linux linux-firmware base-devel git gum
+
+# Generate fstab
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# Copy over install files
+cp -R /root/arch /mnt/
+
+# Change chroot
+arch-chroot /mnt /bin/bash /arch/install_chroot.sh "$pass"
+
+# Set up DNS
+ln -sf ../run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
+
+# Cleanup
+rm -rf /mnt/arch /root/arch
+umount -R /mnt
+
+# Reboot
+for i in {5..1}
+do
+    echo "Rebooting in $i seconds..."
+    sleep 1
+done
+reboot
