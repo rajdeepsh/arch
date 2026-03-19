@@ -19,12 +19,12 @@ cd "$dir"
 sha256_file="sha256sums.txt"
 b2_file="b2sums.txt"
 iso_file=$(find . -type f -name "*.iso" -exec basename {} \; | sort -f | gum choose --header "Please select the ISO to verify:")
-sig_file="$iso_file.sig"
+sig_file="${iso_file}.sig"
 fingerprint=3E80CA1A8B89F69CBA57D98A76A5EF9054449A5C
 
 # Verify sha256 checksum
 sha256_out=$(sha256sum -c "$sha256_file" --ignore-missing 2>&1)
-if [[ "$sha256_out" == *"$iso_file: OK"* ]]; then
+if [[ "$sha256_out" == *"${iso_file}: OK"* ]]; then
   gum style --foreground 82 "✔ sha256 checksum verified successfully!"
 else
   gum style --foreground 196 "✗ sha256 checksum verification failed!"
@@ -33,7 +33,7 @@ fi
 
 # Verify b2 checksum
 b2sum_out=$(b2sum -c "$b2_file" --ignore-missing 2>&1)
-if [[ "$b2sum_out" == *"$iso_file: OK"* ]]; then
+if [[ "$b2sum_out" == *"${iso_file}: OK"* ]]; then
   gum style --foreground 82 "✔ b2 checksum verified successfully!"
 else
   gum style --foreground 196 "✗ b2 checksum verification failed!"
@@ -41,7 +41,7 @@ else
 fi
 
 gum spin --spinner dot --title "Downloading Pierre's gpg key..." -- gpg --auto-key-locate clear,wkd -v --locate-external-key pierre@archlinux.org
-gum spin --spinner dot --title "Trusting Pierre's gpg key..." -- echo "$fingerprint:6:" | gpg --import-ownertrust
+gum spin --spinner dot --title "Trusting Pierre's gpg key..." -- echo "${fingerprint}:6:" | gpg --import-ownertrust
 
 gpg_out=$(gpg --verify "$sig_file" "$iso_file" 2>&1)
 if [[ "$gpg_out" == *'Good signature from "Pierre Schmitz <pierre@archlinux.org>" [ultimate]'* ]]; then
