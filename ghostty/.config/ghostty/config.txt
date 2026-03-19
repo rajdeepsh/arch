@@ -1,5 +1,0 @@
-command = /usr/bin/fish
-theme = Catppuccin Mocha
-font-family = "JetBrainsMono Nerd Font Mono"
-copy-on-select = clipboard
-confirm-close-surface = false
