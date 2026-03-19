@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+WHITE=15
+BLACK=0
+BLUE=14
+GREEN=10
+RED=9
+
+export GUM_CHOOSE_HEADER_FOREGROUND="$GREEN"
+export GUM_CHOOSE_SELECTED_FOREGROUND="$GREEN"
+export GUM_CHOOSE_CURSOR_FOREGROUND="$GREEN"
+
 # Verify needed deps are installed
 programs=(gum sha256sum b2sum gpg)
 for prog in "${programs[@]}"; do
@@ -10,46 +20,46 @@ for prog in "${programs[@]}"; do
   fi
 done
 
-gum style --foreground 57 "Welcome to the Arch Linux ISO verification script!"
-gum style --foreground 57 "Required files: (1) *.iso, (2) *.sig, (3) sha256sums.txt, and (4) b2sums.txt."
+gum style --foreground "$BLUE" "Back to Arch again, Rajdeep? Let's verify your ISO..."
+gum style --foreground "$BLUE" "Required files: (1) *.iso, (2) *.sig, (3) sha256sums.txt, and (4) b2sums.txt."
 echo ""
 
-dir=$(find "$HOME" -mindepth 1 -maxdepth 1 -type d ! -name ".*" | sort -f | gum choose --header "Please select the directory that contains the required files:")
+dir=$(find "$HOME" -mindepth 1 -maxdepth 1 -type d ! -name ".*" | sort -f | gum choose --header "Select directory containing files")
 cd "$dir"
 sha256_file="sha256sums.txt"
 b2_file="b2sums.txt"
-iso_file=$(find . -type f -name "*.iso" -exec basename {} \; | sort -f | gum choose --header "Please select the ISO to verify:")
+iso_file=$(find . -type f -name "*.iso" -exec basename {} \; | sort -f | gum choose --header "Select ISO to verify")
 sig_file="${iso_file}.sig"
 fingerprint=3E80CA1A8B89F69CBA57D98A76A5EF9054449A5C
 
 # Verify sha256 checksum
 sha256_out=$(sha256sum -c "$sha256_file" --ignore-missing 2>&1)
 if [[ "$sha256_out" == *"${iso_file}: OK"* ]]; then
-  gum style --foreground 82 "✔ sha256 checksum verified successfully!"
+  gum style --foreground "$GREEN" "✔ sha256 checksum verified successfully!"
 else
-  gum style --foreground 196 "✗ sha256 checksum verification failed!"
+  gum style --foreground "$RED" "✗ sha256 checksum verification failed!"
   exit 1
 fi
 
 # Verify b2 checksum
 b2sum_out=$(b2sum -c "$b2_file" --ignore-missing 2>&1)
 if [[ "$b2sum_out" == *"${iso_file}: OK"* ]]; then
-  gum style --foreground 82 "✔ b2 checksum verified successfully!"
+  gum style --foreground "$GREEN" "✔ b2 checksum verified successfully!"
 else
-  gum style --foreground 196 "✗ b2 checksum verification failed!"
+  gum style --foreground "$RED" "✗ b2 checksum verification failed!"
   exit 1
 fi
 
-gum spin --spinner dot --title "Downloading Pierre's gpg key..." -- gpg --auto-key-locate clear,wkd -v --locate-external-key pierre@archlinux.org
-gum spin --spinner dot --title "Trusting Pierre's gpg key..." -- echo "${fingerprint}:6:" | gpg --import-ownertrust
+gum spin --spinner dot --spinner.foreground "$BLUE" --title "Downloading Pierre's gpg key..." -- gpg --auto-key-locate clear,wkd -v --locate-external-key pierre@archlinux.org
+gum spin --spinner dot --spinner.foreground "$BLUE" --title "Trusting Pierre's gpg key..." -- echo "${fingerprint}:6:" | gpg --import-ownertrust
 
 gpg_out=$(gpg --verify "$sig_file" "$iso_file" 2>&1)
 if [[ "$gpg_out" == *'Good signature from "Pierre Schmitz <pierre@archlinux.org>" [ultimate]'* ]]; then
-  gum style --foreground 82 "✔ gpg signature verified successfully!"
+  gum style --foreground "$GREEN" "✔ gpg signature verified successfully!"
 else
-  gum style --foreground 196 "✗ gpg signature verification failed!"
+  gum style --foreground "$RED" "✗ gpg signature verification failed!"
   exit 1
 fi
 
 echo ""
-gum spin --spinner globe --title "Done! Press any key to close..." --title.foreground 212 -- bash -c 'read -n 1 -s'
+gum spin --spinner globe --title "Done! Press any key to close..." --title.foreground "$BLUE" -- bash -c 'read -n 1 -s'
