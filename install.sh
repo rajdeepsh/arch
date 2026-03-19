@@ -10,6 +10,7 @@ for prog in "${programs[@]}"; do
   fi
 done
 
+# Partition and format the disk
 while true; do
     disk=$(lsblk -dpno NAME,SIZE,ROTA,TYPE | awk '$3==0 && $4=="disk" {print $1, $2}' | gum choose --header "Select the disk to format:" | awk '{print $1}')
     if gum confirm "Disk to format: $disk"; then
@@ -17,3 +18,22 @@ while true; do
         break
     fi
 done
+
+if [[ "$disk" == *"nvme"* ]]; then
+  part_prefix="p"
+else
+  part_prefix=""
+fi
+
+efi="${disk}${part_prefix}1"
+swap="${disk}${part_prefix}2"
+root="${disk}${part_prefix}3"
+
+mkfs.fat -F 32 "$efi"
+mkswap "$swap"
+mkfs.ext4 -F "$root"
+
+# Mount
+mount --mkdir "$efi" /mnt/boot
+swapon "$swap"
+mount "$root" /mnt
