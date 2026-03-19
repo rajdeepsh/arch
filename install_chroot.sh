@@ -39,3 +39,34 @@ pacman -Syu --noconfirm --needed - < /arch/pkglist.txt
 
 # Setup greetd
 mkdir -p /etc/greetd && cp /arch/config.toml /etc/greetd/
+
+# Install grub
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+sed -i 's/^GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=hidden/' /etc/default/grub
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# Network
+mkdir -p /etc/iwd && cp /arch/main.conf /etc/iwd/
+
+# Setup sshd
+echo "PasswordAuthentication no" >>/etc/ssh/sshd_config.d/20-force_publickey_auth.conf
+echo "AuthenticationMethods publickey" >>/etc/ssh/sshd_config.d/20-force_publickey_auth.conf
+
+# NVIDIA specific
+pacman -Syu --noconfirm --needed dkms linux-headers nvidia-open-dkms nvidia-utils lib32-nvidia-utils nvidia-settings egl-wayland
+sed -i '/^MODULES=/c\MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)' /etc/mkinitcpio.conf
+sed -i '/^HOOKS=/s/kms//' /etc/mkinitcpio.conf
+sed -i '/^HOOKS=/s/( /(/' /etc/mkinitcpio.conf
+sed -i '/^HOOKS=/s/ )/)/' /etc/mkinitcpio.conf
+sed -i '/^HOOKS=/s/  / /' /etc/mkinitcpio.conf
+mkinitcpio -P
+
+# Enable services
+systemctl enable systemd-timesyncd.service
+systemctl enable systemd-resolved.service
+systemctl enable iwd.service
+systemctl enable bluetooth.service
+systemctl enable greetd.service
+
+# Display system information
+fastfetch
