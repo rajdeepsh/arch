@@ -56,32 +56,14 @@
    bash arch/install.sh
    ```
 
-5. Execute the following command to create the `.ssh` folder with authorized keys:
+5. Download your `.ssh` zip file and execute the following command:
 
    ```bash
-   mkdir -p $HOME/.ssh && wget -qO- https://github.com/rajdeepsh.keys >>/home/rajdeep/.ssh/authorized_keys
+   unzip Downloads/file_name.zip -d ~ && rm -rf Downloads/file_name.zip
    ```
 
-6. Download your `ssh` config, public, and private keys, place it in the `.ssh` folder, and execute the following command:
+6. Set everything else up:
 
    ```bash
-   chmod 600 $HOME/.ssh/config && chmod 600 $HOME/.ssh/rajdeepsh && chmod 644 $HOME/.ssh/rajdeepsh.pub
-   ```
-
-7. Execute the following command to setup `git`:
-
-   ```bash
-   git config --global user.name "Rajdeep Singh Hundal" && git config --global user.email "rajd33psh@gmail.com" && git config --global gpg.format ssh && git config --global user.signingkey $HOME/.ssh/rajdeepsh.pub && git config --global commit.gpgsign true
-   ```
-
-8. Execute the following to enable and start `ssh-agent`:
-
-   ```bash
-   systemctl --user enable --now ssh-agent.service
-   ```
-
-9. Clone this repository and set everything else up:
-
-   ```bash
-   git -C $HOME clone git@github.com:rajdeepsh/arch.git && bash $HOME/arch/install_user.sh
+   curl -fsSL https://raw.githubusercontent.com/rajdeepsh/arch-dotfiles/main/install/user | bash
    ```
