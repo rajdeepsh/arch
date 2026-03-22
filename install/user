@@ -28,7 +28,7 @@ makepkg -si
 cd $HOME
 rm -rf $HOME/paru
 
-paru -Syu --needed google-chrome visual-studio-code-bin
+paru -Syu --needed - < $HOME/Repositories/arch-dotfiles/install/aur-packages
 
 echo
 gum style "Done! Please restart for changes to take effect..."
