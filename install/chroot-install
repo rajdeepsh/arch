@@ -8,11 +8,11 @@ hwclock --systohc
 # Set locale
 sed -i 's/^#en_US\.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
-echo "LANG=en_US.UTF-8" >/etc/locale.conf
-echo "KEYMAP=us" >/etc/vconsole.conf
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+echo "KEYMAP=us" > /etc/vconsole.conf
 
 # Set hostname
-echo "arch" >/etc/hostname
+echo "arch" > /etc/hostname
 
 # Set root password
 echo "$1" | passwd root --stdin
@@ -34,11 +34,20 @@ sed -i '/^ParallelDownloads = 20/a ILoveCandy' /etc/pacman.conf
 # Enable multilib
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 
-# Install packages
-pacman -Syu --noconfirm --needed - < /arch/pkglist
+# Install official packages
+curl -fsSL https://raw.githubusercontent.com/rajdeepsh/arch-dotfiles/main/install/or-packages | pacman -Syu --noconfirm --needed -
 
 # Setup greetd
-mkdir -p /etc/greetd && cp /arch/config.toml /etc/greetd/
+mkdir -p /etc/greetd
+cat > /etc/greetd/config.toml << 'EOF'
+[default_session]
+command = "start-hyprland"
+user = "rajdeep"
+
+[initial_session]
+command = "start-hyprland"
+user = "rajdeep"
+EOF
 
 # Install grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
@@ -46,7 +55,11 @@ sed -i 's/^GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=hidden/' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # Network
-mkdir -p /etc/iwd && cp /arch/main.conf /etc/iwd/
+mkdir -p /etc/iwd
+cat > /etc/iwd/main.conf << 'EOF'
+[General]
+EnableNetworkConfiguration=true
+EOF
 
 # Setup sshd
 echo "PasswordAuthentication no" >>/etc/ssh/sshd_config.d/20-force_publickey_auth.conf
