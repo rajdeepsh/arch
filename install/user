@@ -31,4 +31,4 @@ rm -rf $HOME/paru
 paru -Syu --needed - < $HOME/Repositories/arch-dotfiles/install/aur-packages
 
 echo
-gum style "Done! Please restart for changes to take effect..."
+gum spin --spinner globe --title "Done! Press any key to close..." -- bash -c 'read -n 1 -s'
