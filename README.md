@@ -13,9 +13,12 @@
    curl -fsSL https://raw.githubusercontent.com/rajdeepsh/arch-dotfiles/main/install/verify | bash
    ```
 
-4. Flash the Arch ISO into an external drive and boot into the live environment.
+4. Flash the ISO into an external drive and boot into the live environment.
 
 ## Install Arch
+
+> [!TIP]
+> You can identify the `<install-disk>` with`lsblk`.
 
 1. Connect to the internet with `iwctl`:
 
@@ -38,31 +41,19 @@
    ping ping.archlinux.org
    ```
 
-2. Install `gum` and `git`:
+2. Install Arch:
 
    ```bash
-   pacman -Sy gum git --noconfirm
+   curl -fsSL https://raw.githubusercontent.com/rajdeepsh/arch-dotfiles/main/install/install | bash -s -- <install-disk> <password>
    ```
 
-3. Clone this repository:
+3. Download your `.ssh` zip file and execute the following command:
 
    ```bash
-   git clone https://github.com/rajdeepsh/arch.git
+   unzip Downloads/<file-name>.zip -d ~ && rm -rf Downloads/<file-name>.zip
    ```
 
-4. Execute `install.sh`:
-
-   ```bash
-   bash arch/install.sh
-   ```
-
-5. Download your `.ssh` zip file and execute the following command:
-
-   ```bash
-   unzip Downloads/file_name.zip -d ~ && rm -rf Downloads/file_name.zip
-   ```
-
-6. Set everything else up:
+4. Set everything else up:
 
    ```bash
    curl -fsSL https://raw.githubusercontent.com/rajdeepsh/arch-dotfiles/main/install/user-install | bash

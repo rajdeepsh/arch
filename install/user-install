@@ -30,4 +30,9 @@ rm -rf $HOME/paru
 
 paru -Syu --needed - < $HOME/Repositories/arch-dotfiles/install/aur-packages
 
+echo
+for i in {5..1}; do
+  echo "Done! Restarting in ${i} seconds..."
+  sleep 1
+done
 sudo reboot

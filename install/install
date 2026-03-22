@@ -30,22 +30,19 @@ pacstrap -K /mnt base linux linux-firmware base-devel
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 
-# Copy over install files
-# cp -R /root/arch /mnt/
-
 # Change chroot
-arch-chroot /mnt /bin/bash /arch/install_chroot.sh "$pass"
+curl -fsSL https://raw.githubusercontent.com/rajdeepsh/arch-dotfiles/main/install/chroot-install | arch-chroot /mnt /bin/bash -s -- "$pass"
 
 # Set up DNS
 ln -sf ../run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
 
 # Cleanup
-rm -rf /mnt/arch /root/arch
 umount -R /mnt
 
 # Reboot
-echo ""
+echo
 for i in {5..1}; do
-  gum spin --spinner globe --title.foreground "${PURPLE}" --title "Done! Rebooting in ${i} seconds..." -- sleep 1
+  echo "Done! Restarting in ${i} seconds..."
+  sleep 1
 done
 reboot
