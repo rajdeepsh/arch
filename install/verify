@@ -56,3 +56,4 @@ fi
 
 echo
 gum style "Done! Next, flash the ISO..."
+sleep 1
