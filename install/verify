@@ -55,5 +55,4 @@ else
 fi
 
 echo
-gum style "Done! Next, flash the ISO..."
-sleep 1
+echo "Done! Next, flash the ISO..."

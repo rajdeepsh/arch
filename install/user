@@ -30,5 +30,4 @@ rm -rf $HOME/paru
 
 paru -Syu --needed - < $HOME/Repositories/arch-dotfiles/install/aur-packages
 
-echo
-gum style "Done! Restart for changes to take effect..."
+sudo reboot
