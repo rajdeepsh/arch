@@ -65,5 +65,5 @@
 6. Set everything else up:
 
    ```bash
-   curl -fsSL https://raw.githubusercontent.com/rajdeepsh/arch-dotfiles/main/install/user | bash
+   curl -fsSL https://raw.githubusercontent.com/rajdeepsh/arch-dotfiles/main/install/user-install | bash
    ```
