@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+disk="$1"
+pass="$2"
+
+# Partition and format disk
+echo -e "label: gpt\n,1G,U\n,8G,S\n,+,L" | sfdisk --wipe=always "$disk"
+if [[ "$disk" == *"nvme"* ]]; then
+    part_prefix="p"
+else
+    part_prefix=""
+fi
+efi="${disk}${part_prefix}1"
+swap="${disk}${part_prefix}2"
+root="${disk}${part_prefix}3"
+mkfs.fat -F 32 "$efi"
+mkswap "$swap"
+mkfs.ext4 -F "$root"
+mount "$root" /mnt
+mount --mkdir "$efi" /mnt/boot
+swapon "$swap"
+
+# Select mirrors
+reflector -c Singapore -f 20 -l 100 -p https --sort rate --save /etc/pacman.d/mirrorlist
+
+# Install base packages
+pacstrap -K /mnt base linux linux-firmware base-devel
+
+# Generate fstab
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# Copy over install files
+# cp -R /root/arch /mnt/
+
+# Change chroot
+arch-chroot /mnt /bin/bash /arch/install_chroot.sh "$pass"
+
+# Set up DNS
+ln -sf ../run/systemd/resolve/stub-resolv.conf /mnt/etc/resolv.conf
+
+# Cleanup
+rm -rf /mnt/arch /root/arch
+umount -R /mnt
+
+# Reboot
+echo ""
+for i in {5..1}; do
+  gum spin --spinner globe --title.foreground "${PURPLE}" --title "Done! Rebooting in ${i} seconds..." -- sleep 1
+done
+reboot
