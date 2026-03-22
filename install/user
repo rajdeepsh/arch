@@ -31,4 +31,5 @@ rm -rf $HOME/paru
 paru -Syu --needed - < $HOME/Repositories/arch-dotfiles/install/aur-packages
 
 echo
-gum spin --spinner globe --title "Done! Press any key to close..." -- bash -c 'read -n 1 -s'
+gum spin --spinner globe --title "Done! Press any key to restart..." -- bash -c 'read -n 1 -s'
+sudo reboot
