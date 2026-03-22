@@ -2,9 +2,8 @@
 set -euo pipefail
 PURPLE=13
 
-mkdir -p $HOME/.config
-cd $HOME/arch
-stow --adopt */
+cd $HOME/Repositories/arch-dotfiles/config
+stow --adopt -t $HOME */
 git reset --hard HEAD
 cd $HOME
 
