@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+chmod 700 $HOME/.ssh
+chmod 600 $HOME/.ssh/config
+chmod 600 $HOME/.ssh/rajdeepsh
+chmod 644 $HOME/.ssh/rajdeepsh.pub
+wget -qO- https://github.com/rajdeepsh.keys >> $HOME/.ssh/authorized_keys
+
+git config --global user.name "Rajdeep Singh Hundal"
+git config --global user.email "rajd33psh@gmail.com"
+git config --global gpg.format ssh
+git config --global user.signingkey $HOME/.ssh/rajdeepsh.pub
+git config --global commit.gpgsign true
+
+systemctl --user enable --now ssh-agent.service
+
+mkdir -p $HOME/Repositories
+git -C $HOME/Repositories clone git@github.com:rajdeepsh/arch-dotfiles.git
+cd $HOME/Repositories/arch-dotfiles/config
+stow --adopt -t $HOME */
+git reset --hard HEAD
+cd $HOME
+
+git -C $HOME clone https://aur.archlinux.org/paru.git
+cd $HOME/paru
+makepkg -si
+cd $HOME
+rm -rf $HOME/paru
+
+paru -Syu --needed google-chrome visual-studio-code-bin
+
+echo
+gum style "Done! Please restart for changes to take effect..."
