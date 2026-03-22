@@ -18,7 +18,7 @@
 ## Install Arch
 
 > [!TIP]
-> You can identify the `<install-disk>` with`lsblk`.
+> You can identify the `<install-disk>` with `lsblk -p`. E.g., `/dev/nvme0n1`.
 
 1. Connect to the internet with `iwctl`:
 
