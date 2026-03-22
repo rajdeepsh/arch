@@ -1,4 +1,4 @@
-# arch
+# arch-dotfiles
 
 ## Download, Verify, and Flash Arch ISO
 
