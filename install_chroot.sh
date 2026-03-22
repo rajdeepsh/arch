@@ -35,7 +35,7 @@ sed -i '/^ParallelDownloads = 20/a ILoveCandy' /etc/pacman.conf
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 
 # Install packages
-pacman -Syu --noconfirm --needed - < /arch/pkglist.txt
+pacman -Syu --noconfirm --needed - < /arch/pkglist
 
 # Setup greetd
 mkdir -p /etc/greetd && cp /arch/config.toml /etc/greetd/
