@@ -40,6 +40,9 @@ curl -fsSL https://raw.githubusercontent.com/rajdeepsh/arch-dotfiles/main/instal
 # Setup greetd
 mkdir -p /etc/greetd
 cat > /etc/greetd/config.toml << 'EOF'
+[terminal]
+vt = "current"
+
 [default_session]
 command = "start-hyprland"
 user = "rajdeep"
