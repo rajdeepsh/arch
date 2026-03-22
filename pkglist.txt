@@ -43,8 +43,6 @@ ttf-liberation
 ttf-jetbrains-mono-nerd
 
 sof-firmware
-linux-firmware-cirrus
-alsa-firmware
 alsa-utils
 pipewire
 wireplumber
@@ -94,6 +92,7 @@ vlc
 telegram-desktop
 spotify-launcher
 chromium
+firefox
 kitty
 hyprland
 hyprpaper
