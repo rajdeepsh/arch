@@ -52,6 +52,12 @@ command = "start-hyprland"
 user = "rajdeep"
 EOF
 
+# Chromium policies
+mkdir -p /etc/chromium/policies/managed
+cat > /etc/chromium/policies/managed/color.json << 'EOF'
+{"BrowserThemeColor": "#1e1e2e"}
+EOF
+
 # Install grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 sed -i 's/^GRUB_TIMEOUT_STYLE=.*/GRUB_TIMEOUT_STYLE=hidden/' /etc/default/grub
