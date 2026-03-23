@@ -22,14 +22,6 @@ stow --adopt -t $HOME */
 git reset --hard HEAD
 cd $HOME
 
-git -C $HOME clone https://aur.archlinux.org/paru.git
-cd $HOME/paru
-makepkg -si
-cd $HOME
-rm -rf $HOME/paru
-
-paru -Syu --needed - < $HOME/Repositories/arch-dotfiles/install/aur-packages
-
 echo
 for i in {5..1}; do
   echo "Done! Restarting in ${i} seconds..."
