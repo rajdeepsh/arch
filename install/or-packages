@@ -25,6 +25,7 @@ ttf-jetbrains-mono-nerd
 sof-firmware
 alsa-utils
 pipewire
+wiremix
 wireplumber
 pipewire-audio
 pipewire-alsa
