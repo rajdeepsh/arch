@@ -18,7 +18,7 @@ systemctl --user enable --now ssh-agent.service
 mkdir -p $HOME/Repositories
 git -C $HOME/Repositories clone git@github.com:rajdeepsh/arch-dotfiles.git
 cd $HOME/Repositories/arch-dotfiles/config
-stow --adopt -t $HOME */
+stow --adopt --no-folding -t $HOME */
 git reset --hard HEAD
 cd $HOME
 

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd $HOME/Repositories/arch-dotfiles/config
+stow --adopt -nv --no-folding -t $HOME */
+if gum confirm "Stow these files?"; then
+    stow --adopt --no-folding -t $HOME */
+    git reset --hard HEAD
+    "$SCRIPTS/arch-show-done"
+fi
+
