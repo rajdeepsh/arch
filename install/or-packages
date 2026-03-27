@@ -52,6 +52,7 @@ clang
 curl
 ghostty
 tmux
+opencode
 gum
 vim
 fish
