@@ -51,6 +51,7 @@ gcc
 clang
 curl
 ghostty
+tmux
 gum
 vim
 fish
