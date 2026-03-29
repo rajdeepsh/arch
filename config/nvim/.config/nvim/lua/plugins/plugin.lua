@@ -1,17 +1,6 @@
 return {
-  { 
-    "catppuccin/nvim",
-    enabled = true,
-    name = "catppuccin",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd([[colorscheme catppuccin-mocha]])
-    end,
-  },
   {
     "folke/tokyonight.nvim",
-    enabled = false,
     lazy = false,
     priority = 1000,
     config = function()
@@ -26,6 +15,12 @@ return {
     opts = {
       notifier = { enabled = true },
       explorer = { enabled = true },
+      indent = { enabled = true },
+      lazygit = { enabled = true },
+    },
+    keys = {
+      { "<leader>e", function() Snacks.explorer() end, desc = "File Explorer" },
+      { "<C-g>", function() Snacks.lazygit() end, desc = "Lazygit" },
     },
   }
 }
