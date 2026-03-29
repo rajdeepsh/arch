@@ -1,5 +1,5 @@
 command = /usr/bin/fish
-theme = Catppuccin Mocha
+theme = "tokyonight_moon"
 # theme = TokyoNight
 font-family = "JetBrainsMono Nerd Font"
 font-style = Regular
