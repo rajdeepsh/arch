@@ -55,7 +55,7 @@ EOF
 # Chromium policies
 mkdir -p /etc/chromium/policies/managed
 cat > /etc/chromium/policies/managed/color.json << 'EOF'
-{"BrowserThemeColor": "#1e1e2e"}
+{"BrowserThemeColor": "#222436"}
 EOF
 
 # Install grub
