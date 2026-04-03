@@ -23,10 +23,19 @@
 
 #workspaces button.active {
   border-bottom: 2px solid #ff966c;
-  border-top: 2px solid transparent;
 }
 
 #workspaces button:hover {
   background: none;
   box-shadow: none;
+}
+
+#battery {
+  min-width: 12px;
+  margin: 0 7.5px;
+}
+
+#battery.warning,
+#battery.critical {
+  color: #ff966c;
 }
