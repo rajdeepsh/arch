@@ -6,8 +6,9 @@
   "height": 26,
   "modules-left": ["hyprland/workspaces"],
   "modules-center": ["clock"],
-  "modules-right": ["network","battery"],
+  "modules-right": ["network", "cpu", "battery"],
   "clock": {
+    "interval": 3,
     "format": "{:%A, %I:%M %p}",
     "tooltip": false
   },
@@ -40,7 +41,7 @@
       "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
     "format-full": "{capacity}% 󰂅",
-    "interval": 5,
+    "interval": 3,
     "tooltip": false,
     "states": {
       "warning": 20,
@@ -57,5 +58,10 @@
     "format-disabled": "󰤮",
     "tooltip": false,
     "interval": 3
+  },
+  "cpu": {
+    "interval": 3,
+    "format": "{usage}% 󰍛",
+    "tooltip": false
   }
 }
