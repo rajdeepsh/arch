@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if selection=$(slurp); then
+    grim -g "$selection" - | wl-copy
+    notify-send "Screenshot copied to clipboard!"
+fi
